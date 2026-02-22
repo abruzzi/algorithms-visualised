@@ -1,108 +1,120 @@
 """
-Scene 2: Distance integers — positions 1000, 2000, 3000, ...
-Insert between 1000 and 2000 → use 1500. No renumbering.
+Scene 2a: Sparse (distance) integers — positions 1000, 2000, 3000, ...
+Same move as problem: drag E between A and B. Only E's label changes (5000 → 1500);
+B, C, D stay 2000, 3000, 4000. One write, no cascade. Fair comparison.
+Same visual style as 01_problem.py.
 """
 
 from manim import *
 
+from common import (
+    COLOR_BG,
+    LABEL_UPDATED,
+    TEXT_LIGHT,
+    create_plane,
+    make_item,
+    make_position_label_like,
+)
+from common import (
+    CONCLUSION_BUFF,
+    CONCLUSION_FONT_SIZE,
+    CONCLUSION_WAIT,
+    CONCLUSION_WRITE_RUN_TIME,
+    FONT_DEFAULT,
+    GAP_LABEL_FADEIN_RUN_TIME,
+    GAP_LABEL_FADEOUT_RUN_TIME,
+    GAP_LABEL_WAIT,
+    ITEM_ARRANGE_BUFF,
+    ITEMS_FADEIN_LAG_RATIO,
+    ITEMS_FADEIN_RUN_TIME,
+    ITEMS_FADEIN_SHIFT,
+    ITEMS_WAIT_AFTER,
+    LABEL_TINY_FONT_SIZE,
+    LABEL_UPDATE_RUN_TIME_SLOW,
+    MOVE_RUN_TIME,
+    MOVE_WAIT_AFTER,
+    SLOT_OFFSET,
+    TITLE_FONT_SIZE,
+    TITLE_WAIT_AFTER,
+    TITLE_WRITE_RUN_TIME,
+)
+
 
 class DistanceIntegers(Scene):
+    """Sparse integers: same move as problem; only E updates to 1500; no cascade."""
     def construct(self):
-        title = Text("Sparse integers: leave room between positions", font_size=36)
+        self.camera.background_color = COLOR_BG
+
+        try:
+            Text.set_default(font=FONT_DEFAULT)
+        except Exception:
+            pass
+
+        bg_plane = create_plane()
+        if bg_plane is not None:
+            self.add(bg_plane)
+
+        title = Text("Sparse integers: leave room between positions", font_size=TITLE_FONT_SIZE, color=TEXT_LIGHT)
         title.to_edge(UP)
-        self.play(Write(title))
+        self.play(Write(title), run_time=TITLE_WRITE_RUN_TIME)
+        self.wait(TITLE_WAIT_AFTER)
 
-        # Positions 1000, 2000, 3000, 4000, 5000
+        # Initial list: A(1000), B(2000), C(3000), D(4000), E(5000)
+        letters = ["A", "B", "C", "D", "E"]
         positions = [1000, 2000, 3000, 4000, 5000]
-        labels = [f"Item {i}" for i in "ABCDE"]
-        items = VGroup()
-        for i, (pos, lbl) in enumerate(zip(positions, labels)):
-            box = VGroup(
-                Text(f"[{pos}]", font_size=26, color=YELLOW),
-                Text(lbl, font_size=22),
-            ).arrange(RIGHT, buff=0.3)
-            box.move_to(UP * (1.5 - i * 0.55))
-            items.add(box)
-
-        self.play(LaggedStart(*(Create(item) for item in items), lag_ratio=0.2))
-        self.wait(1)
-
-        # Highlight gap between 1000 and 2000
-        gap_label = Text("gap = 1000", font_size=24, color=GREEN)
-        gap_label.move_to(items[0].get_right() + RIGHT * 1.2)
-        self.play(Write(gap_label))
-        self.wait(0.8)
-        self.play(FadeOut(gap_label))
-
-        # Insert between 1000 and 2000 → 1500
-        new_item = VGroup(
-            Text("[1500]", font_size=26, color=GREEN),
-            Text("New item", font_size=22),
-        ).arrange(RIGHT, buff=0.3)
-        new_item.move_to(items[0].get_center() + DOWN * 0.6)
-        new_item.shift(LEFT * 0.5)
+        items = VGroup(*[make_item(ltr, pos) for ltr, pos in zip(letters, positions)])
+        items.arrange(DOWN, buff=ITEM_ARRANGE_BUFF, aligned_edge=LEFT)
+        items.move_to(ORIGIN)
 
         self.play(
-            items[0].animate.shift(UP * 0.3),
-            items[1:].animate.shift(DOWN * 0.3),
+            LaggedStart(
+                *(FadeIn(item, shift=UP * ITEMS_FADEIN_SHIFT) for item in items),
+                lag_ratio=ITEMS_FADEIN_LAG_RATIO,
+            ),
+            run_time=ITEMS_FADEIN_RUN_TIME,
         )
-        self.play(FadeIn(new_item, shift=UP * 0.2))
-        self.wait(1)
+        self.wait(ITEMS_WAIT_AFTER)
 
-        one_write = Text("One write. No cascade.", font_size=28, color=GREEN)
-        one_write.next_to(new_item, DOWN, buff=0.6)
-        self.play(Write(one_write))
-        self.wait(2)
+        gap_label = Text("gap", font_size=LABEL_TINY_FONT_SIZE, color=LABEL_UPDATED)
+        gap_label.next_to(items[0], RIGHT, buff=1.2)
+        self.play(FadeIn(gap_label), run_time=GAP_LABEL_FADEIN_RUN_TIME)
+        self.wait(GAP_LABEL_WAIT)
+        self.play(FadeOut(gap_label), run_time=GAP_LABEL_FADEOUT_RUN_TIME)
 
+        # Same move as problem: drag E between A and B; reflow B, C, D down
+        item_a, item_b, item_c, item_d, item_e = items
+        slot_height = item_a.height + SLOT_OFFSET
+        target_e = item_a.get_center() + DOWN * slot_height
+        item_e.generate_target()
+        item_e.target.move_to(target_e)
 
-class SparseRebalance(Scene):
-    """Gap runs out (1500, 1501, 1502) → rebalance segment. Happens often with sparse ints."""
-    def construct(self):
-        title = Text("Sparse integers: when the gap runs out", font_size=36)
-        title.to_edge(UP)
-        self.play(Write(title))
+        self.play(MoveToTarget(item_e), run_time=MOVE_RUN_TIME, rate_func=smooth)
+        self.wait(MOVE_WAIT_AFTER)
 
-        # Crowded: 1000, 1500, 1501, 1502, 2000
-        positions = [1000, 1500, 1501, 1502, 2000]
-        labels = ["A", "X", "Y", "Z", "B"]
-        items = VGroup()
-        for i, (pos, lbl) in enumerate(zip(positions, labels)):
-            box = VGroup(
-                Text(f"[{pos}]", font_size=24, color=YELLOW),
-                Text(lbl, font_size=20),
-            ).arrange(RIGHT, buff=0.25)
-            box.move_to(UP * (1.2 - i * 0.5))
-            items.add(box)
+        item_b.generate_target()
+        item_b.target.move_to(target_e + DOWN * slot_height)
+        item_c.generate_target()
+        item_c.target.move_to(target_e + 2 * DOWN * slot_height)
+        item_d.generate_target()
+        item_d.target.move_to(target_e + 3 * DOWN * slot_height)
 
-        self.play(LaggedStart(*(Create(item) for item in items), lag_ratio=0.2))
-        self.wait(1)
+        self.play(
+            MoveToTarget(item_b),
+            MoveToTarget(item_c),
+            MoveToTarget(item_d),
+            run_time=MOVE_RUN_TIME,
+            rate_func=smooth,
+        )
+        self.wait(MOVE_WAIT_AFTER)
 
-        # "No integer between 1501 and 1502!"
-        problem = Text("No integer between 1501 and 1502!", font_size=26, color=RED)
-        problem.next_to(items, DOWN, buff=0.6)
-        self.play(Write(problem))
-        self.wait(1.2)
+        old_pos_text = item_e[2]
+        new_pos_text = make_position_label_like(1500, LABEL_UPDATED, old_pos_text).move_to(
+            old_pos_text.get_center()
+        )
+        self.play(Transform(old_pos_text, new_pos_text), run_time=LABEL_UPDATE_RUN_TIME_SLOW)
+        self.wait(0.8)
 
-        rebalance_label = Text("Rebalance: respace segment → restore gaps", font_size=26, color=TEAL)
-        rebalance_label.next_to(problem, DOWN, buff=0.4)
-        self.play(Write(rebalance_label))
-        self.play(FadeOut(problem))
-
-        # After rebalance: 1000, 2000, 3000, 4000, 5000
-        new_positions = [1000, 2000, 3000, 4000, 5000]
-        items2 = VGroup()
-        for i, (pos, lbl) in enumerate(zip(new_positions, labels)):
-            box = VGroup(
-                Text(f"[{pos}]", font_size=24, color=GREEN),
-                Text(lbl, font_size=20),
-            ).arrange(RIGHT, buff=0.25)
-            box.move_to(UP * (1.2 - i * 0.5))
-            items2.add(box)
-
-        self.play(Transform(items, items2))
-        self.wait(1)
-
-        often = Text("Rebalance: often (every time gap runs out)", font_size=24, color=TEAL)
-        often.to_edge(DOWN, buff=0.5)
-        self.play(Write(often))
-        self.wait(2)
+        conclusion = Text("One write. No cascade.", font_size=CONCLUSION_FONT_SIZE, color=LABEL_UPDATED)
+        conclusion.next_to(item_d, DOWN, buff=CONCLUSION_BUFF)
+        self.play(Write(conclusion), run_time=CONCLUSION_WRITE_RUN_TIME)
+        self.wait(CONCLUSION_WAIT)
