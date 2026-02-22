@@ -57,7 +57,12 @@ class SparseRebalance(Scene):
         if bg_plane is not None:
             self.add(bg_plane)
 
-        title = Text("Sparse integers: when the gap fills up", font_size=TITLE_FONT_SIZE, color=TEXT_LIGHT)
+        title = Text(
+            "Sparse integers: when the gap fills up",
+            font=FONT_DEFAULT,
+            font_size=TITLE_FONT_SIZE,
+            color=TEXT_LIGHT,
+        )
         title.to_edge(UP)
         self.play(Write(title), run_time=TITLE_WRITE_RUN_TIME)
         self.wait(TITLE_WAIT_AFTER)
@@ -150,7 +155,12 @@ class SparseRebalance(Scene):
         )
         self.wait(INSERT_WAIT_AFTER)
 
-        density_label = Text("Gap filling up → rebalance", font_size=LABEL_SMALL_FONT_SIZE, color=LABEL_UPDATED)
+        density_label = Text(
+            "Gap filling up → rebalance",
+            font=FONT_DEFAULT,
+            font_size=LABEL_SMALL_FONT_SIZE,
+            color=LABEL_UPDATED,
+        )
         density_label.next_to(item_e, DOWN, buff=0.6)
         self.play(Write(density_label), run_time=DENSITY_LABEL_WRITE_RUN_TIME)
         self.wait(DENSITY_LABEL_WAIT)
@@ -169,6 +179,7 @@ class SparseRebalance(Scene):
 
         conclusion = Text(
             "Rebalance: restore sparse gaps (happens often)",
+            font=FONT_DEFAULT,
             font_size=CONCLUSION_FONT_SIZE_SMALL,
             color=TEXT_LIGHT,
         )

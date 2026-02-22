@@ -14,6 +14,7 @@ from common import (
     LABEL_UPDATED,
     TEXT_LIGHT,
     create_plane,
+    debug_font_info,
     make_box_only,
     make_item,
     make_position_label_like,
@@ -42,6 +43,8 @@ class ProblemIntro(Scene):
     def construct(self):
         self.camera.background_color = COLOR_BG
 
+        debug_font_info("01_problem.ProblemIntro")
+
         try:
             Text.set_default(font=FONT_DEFAULT)
         except Exception:
@@ -51,7 +54,12 @@ class ProblemIntro(Scene):
         if bg_plane is not None:
             self.add(bg_plane)
 
-        title = Text("Ordered list: positions as integers", font_size=TITLE_FONT_SIZE, color=TEXT_LIGHT)
+        title = Text(
+            "Ordered list: positions as integers",
+            font=FONT_DEFAULT,
+            font_size=TITLE_FONT_SIZE,
+            color=TEXT_LIGHT,
+        )
         title.to_edge(UP)
         self.play(Write(title), run_time=TITLE_WRITE_RUN_TIME)
         self.wait(TITLE_WAIT_AFTER)

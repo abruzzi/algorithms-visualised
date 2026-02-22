@@ -57,6 +57,7 @@ class LexorankRebalance(Scene):
 
         title = Text(
             "Lexorank: when the gap fills up",
+            font=FONT_DEFAULT,
             font_size=TITLE_FONT_SIZE,
             color=TEXT_LIGHT,
         )
@@ -85,6 +86,7 @@ class LexorankRebalance(Scene):
         # Insert G between "a" and "am" → midpoint "ag"
         mid_caption1 = Text(
             'Between "a" and "am" → midpoint "ag"',
+            font=FONT_DEFAULT,
             font_size=LABEL_TINY_FONT_SIZE,
             color=TEXT_LIGHT,
         )
@@ -122,6 +124,7 @@ class LexorankRebalance(Scene):
         # Replace caption: insert between "a" and "ag" → "ad"
         mid_caption2 = Text(
             'Between "a" and "ag" → midpoint "ad"',
+            font=FONT_DEFAULT,
             font_size=LABEL_TINY_FONT_SIZE,
             color=TEXT_LIGHT,
         )
@@ -162,6 +165,7 @@ class LexorankRebalance(Scene):
         # Gap filling → rebalance
         density_label = Text(
             "Gap filling up → rebalance",
+            font=FONT_DEFAULT,
             font_size=LABEL_TINY_FONT_SIZE,
             color=LABEL_UPDATED,
         )
@@ -171,6 +175,7 @@ class LexorankRebalance(Scene):
         self.play(FadeOut(density_label), run_time=GAP_LABEL_FADEOUT_RUN_TIME)
 
         # Rebalance: assign sparse ranks a, b, c, d, e, f, g, h; updated = yellow
+        # Position each new label with next_to so it stays left-aligned (no shift when text length changes)
         order = [item_a, new_h, new_g, item_f, item_b, item_c, item_d, item_e]
         new_ranks = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for mob, new_rank in zip(order, new_ranks):
@@ -178,18 +183,16 @@ class LexorankRebalance(Scene):
             label_color = LABEL_DEFAULT if new_rank == "a" else LABEL_UPDATED
             new_rank_text = make_rank_label_like(
                 new_rank, label_color, old_rank_text
-            ).move_to(old_rank_text.get_center())
+            ).next_to(mob[0], RIGHT, buff=POSITION_LABEL_BUFF)
             self.play(
                 Transform(old_rank_text, new_rank_text),
                 run_time=LABEL_UPDATE_RUN_TIME,
             )
-        # Re-align labels (Transform can shift left edge); keep left-aligned with node
-        for mob in order:
-            mob[2].next_to(mob[0], RIGHT, buff=POSITION_LABEL_BUFF)
         self.wait(REBALANCE_WAIT_AFTER)
 
         conclusion = Text(
             "Rebalance: restore sparse ranks (rare with Lexorank)",
+            font=FONT_DEFAULT,
             font_size=CONCLUSION_FONT_SIZE_SMALL,
             color=TEXT_LIGHT,
         )

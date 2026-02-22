@@ -47,7 +47,12 @@ class LexorankInsert(Scene):
         if bg_plane is not None:
             self.add(bg_plane)
 
-        title = Text("Lexorank: string positions", font_size=TITLE_FONT_SIZE, color=TEXT_LIGHT)
+        title = Text(
+            "Lexorank: string positions",
+            font=FONT_DEFAULT,
+            font_size=TITLE_FONT_SIZE,
+            color=TEXT_LIGHT,
+        )
         title.to_edge(UP)
         self.play(Write(title), run_time=TITLE_WRITE_RUN_TIME)
         self.wait(TITLE_WAIT_AFTER)
@@ -73,6 +78,7 @@ class LexorankInsert(Scene):
         # Explain why the new rank is "am": midpoint between "a" and "b"
         mid_caption = Text(
             'Between "a" and "b": no single character in between → use "a" + "m" = "am"',
+            font=FONT_DEFAULT,
             font_size=LABEL_SMALL_FONT_SIZE,
             color=TEXT_LIGHT,
         )
@@ -107,6 +113,7 @@ class LexorankInsert(Scene):
 
         conclusion = Text(
             "One write. New rank = midpoint; others unchanged.",
+            font=FONT_DEFAULT,
             font_size=CONCLUSION_FONT_SIZE_SMALL,
             color=TEXT_LIGHT,
         )

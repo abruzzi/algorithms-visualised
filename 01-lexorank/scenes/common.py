@@ -4,6 +4,36 @@ Import colors, timing constants, make_item, make_box_only from here.
 """
 
 from manim import *
+import manimpango
+
+# -----------------------------------------------------------------------------
+# Font
+# -----------------------------------------------------------------------------
+def _pick_first_available_font(preferred):
+    """Return the first font in preferred that appears in list_fonts (avoids Manim's comma-string warning)."""
+    available = set(manimpango.list_fonts())
+    for name in preferred:
+        if name in available:
+            return name
+    return preferred[0]  # fallback to first; Manim may still find it via Pango
+
+
+FONT_PREFERRED_ORDER = ["Fira Code", "JetBrains Mono", "SF Mono"]
+# Use Fira Code when available; otherwise first available from preferred order.
+FONT_DEFAULT = _pick_first_available_font(FONT_PREFERRED_ORDER)
+# Use same font as titles/letters so all text (including position/rank labels) matches 01.
+FONT_POSITION_LABEL = FONT_DEFAULT
+
+
+def debug_font_info(scene_name: str = "scene"):
+    """Log current font to console only (no on-screen label)."""
+    import logging
+    t = Text("A", font=FONT_DEFAULT, font_size=24)
+    actual_font = getattr(t, "font", FONT_DEFAULT)
+    logging.getLogger("manim").info(
+        f"[{scene_name}] font: requested={FONT_DEFAULT!r} resolved={actual_font!r} "
+        f"(available: {FONT_DEFAULT in set(manimpango.list_fonts())})"
+    )
 
 # -----------------------------------------------------------------------------
 # Colors
@@ -14,13 +44,6 @@ COLOR_NODE_BORDER = "#3498DB"
 TEXT_LIGHT = "#E0E0E0"
 LABEL_DEFAULT = "#ffffff"
 LABEL_UPDATED = "#F1C40F"
-
-# -----------------------------------------------------------------------------
-# Font
-# -----------------------------------------------------------------------------
-FONT_DEFAULT = "JetBrains Mono"
-# Position labels use a single font so white and yellow render the same "0" (no Pango fallback by color).
-FONT_POSITION_LABEL = "Sans"
 
 # -----------------------------------------------------------------------------
 # Node / item styling
@@ -140,6 +163,11 @@ def make_position_label_like(value, color, existing_text_mobject):
     )
 
 
+def _place_letter_in_rect(letter_text, rect):
+    """Place letter centered in the rect."""
+    letter_text.move_to(rect.get_center())
+
+
 def make_item(
     letter: str,
     position: int,
@@ -161,7 +189,8 @@ def make_item(
         font_size=LETTER_FONT_SIZE,
         color=TEXT_LIGHT,
         **_text_font_kwargs(),
-    ).move_to(rect.get_center())
+    )
+    _place_letter_in_rect(letter_text, rect)
     pos_text = make_position_label(position, LABEL_DEFAULT).next_to(
         rect, RIGHT, buff=POSITION_LABEL_BUFF
     )
@@ -209,7 +238,8 @@ def make_item_rank(
         font_size=LETTER_FONT_SIZE,
         color=TEXT_LIGHT,
         **_text_font_kwargs(),
-    ).move_to(rect.get_center())
+    )
+    _place_letter_in_rect(letter_text, rect)
     rank_text = make_rank_label(rank_str, LABEL_DEFAULT).next_to(
         rect, RIGHT, buff=POSITION_LABEL_BUFF
     )

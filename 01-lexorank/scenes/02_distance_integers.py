@@ -54,7 +54,12 @@ class DistanceIntegers(Scene):
         if bg_plane is not None:
             self.add(bg_plane)
 
-        title = Text("Sparse integers: leave room between positions", font_size=TITLE_FONT_SIZE, color=TEXT_LIGHT)
+        title = Text(
+            "Sparse integers: leave room between positions",
+            font=FONT_DEFAULT,
+            font_size=TITLE_FONT_SIZE,
+            color=TEXT_LIGHT,
+        )
         title.to_edge(UP)
         self.play(Write(title), run_time=TITLE_WRITE_RUN_TIME)
         self.wait(TITLE_WAIT_AFTER)
@@ -75,7 +80,12 @@ class DistanceIntegers(Scene):
         )
         self.wait(ITEMS_WAIT_AFTER)
 
-        gap_label = Text("gap", font_size=LABEL_TINY_FONT_SIZE, color=LABEL_UPDATED)
+        gap_label = Text(
+            "gap",
+            font=FONT_DEFAULT,
+            font_size=LABEL_TINY_FONT_SIZE,
+            color=LABEL_UPDATED,
+        )
         gap_label.next_to(items[0], RIGHT, buff=1.2)
         self.play(FadeIn(gap_label), run_time=GAP_LABEL_FADEIN_RUN_TIME)
         self.wait(GAP_LABEL_WAIT)
@@ -114,7 +124,12 @@ class DistanceIntegers(Scene):
         self.play(Transform(old_pos_text, new_pos_text), run_time=LABEL_UPDATE_RUN_TIME_SLOW)
         self.wait(0.8)
 
-        conclusion = Text("One write. No cascade.", font_size=CONCLUSION_FONT_SIZE, color=LABEL_UPDATED)
+        conclusion = Text(
+            "One write. No cascade.",
+            font=FONT_DEFAULT,
+            font_size=CONCLUSION_FONT_SIZE,
+            color=LABEL_UPDATED,
+        )
         conclusion.next_to(item_d, DOWN, buff=CONCLUSION_BUFF)
         self.play(Write(conclusion), run_time=CONCLUSION_WRITE_RUN_TIME)
         self.wait(CONCLUSION_WAIT)
