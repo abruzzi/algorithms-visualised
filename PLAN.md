@@ -53,7 +53,8 @@ software-design-algorithms/
 3. **Scenes**: Implement Manim scenes in `scenes/` to match script sections.
 4. **Code**: Add snippets in `code/` and reference them in the script.
 5. **Render**: From repo root or per-tutorial folder, e.g.  
-   `manim -pql scenes/01_problem.py ProblemIntro`
+   `manim -pql --disable_caching scenes/01_problem.py ProblemIntro`  
+   (Use `--disable_caching` during development so font/layout/color changes show up; see README.)
 
 ---
 

@@ -193,12 +193,12 @@ class LexorankRebalance(Scene):
             )
         self.wait(REBALANCE_WAIT_AFTER)
 
-        conclusion = Text(
-            "Rebalance: restore sparse ranks (rare with Lexorank)",
-            font=FONT_DEFAULT,
-            font_size=CONCLUSION_FONT_SIZE_SMALL,
-            color=TEXT_LIGHT,
-        )
-        conclusion.next_to(item_e, DOWN, buff=CONCLUSION_BUFF_SMALL)
-        self.play(Write(conclusion), run_time=CONCLUSION_WRITE_RUN_TIME)
-        self.wait(CONCLUSION_WAIT)
+        # conclusion = Text(
+        #     "Rebalance: restore sparse ranks (rare with Lexorank)",
+        #     font=FONT_DEFAULT,
+        #     font_size=CONCLUSION_FONT_SIZE_SMALL,
+        #     color=TEXT_LIGHT,
+        # )
+        # conclusion.next_to(item_e, DOWN, buff=CONCLUSION_BUFF_SMALL)
+        # self.play(Write(conclusion), run_time=CONCLUSION_WRITE_RUN_TIME)
+        # self.wait(CONCLUSION_WAIT)

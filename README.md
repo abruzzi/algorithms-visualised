@@ -35,18 +35,18 @@ Each tutorial lives in its own folder: `NN-topic/` (e.g. `01-lexorank/`). Inside
 - **code/** — Code snippets referenced in the script
 - **scenes/** — Manim scene files (`.py`)
 
-See [PLAN.md](PLAN.md) for the full folder layout and workflow.
+See [PLAN.md](PLAN.md) for the full folder layout and workflow. For Lexorank scenes, [01-lexorank/STYLE_RULES.md](01-lexorank/STYLE_RULES.md) defines font, colors, timing, and layout so you don’t have to re-specify them.
 
 ## Running animations
 
 **Activate the venv first** (`source .venv/bin/activate`), then from the project root:
 
 ```bash
-# Render a scene (low quality, preview)
-manim -pql 01-lexorank/scenes/01_problem.py ProblemIntro
+# Render a scene (low quality, preview) — use --disable_caching during development
+manim -pql --disable_caching 01-lexorank/scenes/01_problem.py ProblemIntro
 
-# Higher quality
-manim -pqh 01-lexorank/scenes/01_problem.py ProblemIntro
+# Higher quality (e.g. final export)
+manim -qh --disable_caching 01-lexorank/scenes/01_problem.py ProblemIntro
 
 # List all scenes in a file
 manim -ql 01-lexorank/scenes/03_lexorank_algorithm.py
@@ -56,8 +56,10 @@ Or from inside a tutorial folder:
 
 ```bash
 cd 01-lexorank
-manim -pql scenes/01_problem.py ProblemIntro
+manim -pql --disable_caching scenes/01_problem.py ProblemIntro
 ```
+
+**Cache:** Manim caches partial movies. During development this is annoying: font, layout, or color changes can be invisible until you clear cache. **Always use `--disable_caching`** when iterating; you can drop it for one-off full-quality renders if you prefer.
 
 Output (videos) goes to `media/` at the project root by default; this folder is gitignored.
 
