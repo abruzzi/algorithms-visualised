@@ -61,6 +61,24 @@ manim -pql scenes/01_problem.py ProblemIntro
 
 Output (videos) goes to `media/` at the project root by default; this folder is gitignored.
 
+### Preview without rendering the full video every time
+
+- **Last frame only (fastest)** — Renders only the final frame as a PNG. Use this to check layout, colors, or the end state without waiting for the full animation:
+  ```bash
+  manim -s -ql 01-lexorank/scenes/01_problem.py ProblemIntro
+  ```
+  Image is written to `media/images/01_problem/ProblemIntro.png` (and opens with `-p` if you add it).
+
+- **Low quality** — You’re already using `-ql` (480p, 15 fps). Stay with `-pql` for the quickest full-video preview.
+
+- **OpenGL live preview** — Uses a window to play the animation (and can re-run on demand) instead of writing a video file first. Handy for repeated tweaks:
+  ```bash
+  manim -p -ql --renderer opengl 01-lexorank/scenes/01_problem.py ProblemIntro
+  ```
+  Requires OpenGL support; on some machines the default Cairo renderer is more reliable.
+
+- **Jupyter** — For step-by-step or inline preview, use the `%%manim` magic in a notebook (see [Manim docs](https://docs.manim.community/en/stable/installation/jupyter.html)).
+
 ## Tutorials
 
 | #   | Topic     | Description                                      |
