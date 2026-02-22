@@ -9,12 +9,14 @@ from manim import *
 
 from common import (
     COLOR_BG,
+    debug_font_info,
     LABEL_DEFAULT,
     LABEL_UPDATED,
     TEXT_LIGHT,
     create_plane,
     make_item,
     make_position_label_like,
+    position_replacement_label,
 )
 from common import (
     CONCLUSION_BUFF_SMALL,
@@ -47,6 +49,8 @@ class SparseRebalance(Scene):
     """Insert F, G, H in same gap → density; then rebalance to restore sparse gaps."""
     def construct(self):
         self.camera.background_color = COLOR_BG
+
+        debug_font_info("03_sparse_rebalance.SparseRebalance")
 
         try:
             Text.set_default(font=FONT_DEFAULT)
@@ -166,14 +170,14 @@ class SparseRebalance(Scene):
         self.wait(DENSITY_LABEL_WAIT)
         self.play(FadeOut(density_label), run_time=GAP_LABEL_FADEOUT_RUN_TIME)
 
-        # --- Rebalance: same as 01_problem — update each label one-by-one; normal text, only number changes ---
+        # --- Rebalance: update each label one-by-one; unchanged 1000 = white, rest = yellow ---
         order = [item_a, new_h, new_g, new_f, item_b, item_c, item_d, item_e]
         new_positions = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000]
         for mob, new_pos in zip(order, new_positions):
             old_pos_text = mob[2]
-            new_pos_text = make_position_label_like(new_pos, LABEL_DEFAULT, old_pos_text).move_to(
-                old_pos_text.get_center()
-            )
+            label_color = LABEL_DEFAULT if new_pos == 1000 else LABEL_UPDATED
+            new_pos_text = make_position_label_like(new_pos, label_color, old_pos_text)
+            position_replacement_label(new_pos_text, mob)
             self.play(Transform(old_pos_text, new_pos_text), run_time=LABEL_UPDATE_RUN_TIME)
         self.wait(REBALANCE_WAIT_AFTER)
 

@@ -3,25 +3,31 @@ Shared style, animation timing, and helpers for Lexorank scenes.
 Import colors, timing constants, make_item, make_box_only from here.
 """
 
+import os
+
 from manim import *
 import manimpango
 
 # -----------------------------------------------------------------------------
-# Font
+# Font — single source of truth. Register Fira Code so Pango always has it.
 # -----------------------------------------------------------------------------
-def _pick_first_available_font(preferred):
-    """Return the first font in preferred that appears in list_fonts (avoids Manim's comma-string warning)."""
-    available = set(manimpango.list_fonts())
-    for name in preferred:
-        if name in available:
-            return name
-    return preferred[0]  # fallback to first; Manim may still find it via Pango
+def _register_fira_code():
+    for path in (
+        os.path.expanduser("~/Library/Fonts/FiraCode-Regular.ttf"),
+        os.path.expanduser("~/Library/Fonts/Fira Code Regular.ttf"),
+        "/Library/Fonts/FiraCode-Regular.ttf",
+        "/usr/share/fonts/truetype/firacode/FiraCode-Regular.ttf",
+    ):
+        if os.path.isfile(path):
+            try:
+                manimpango.register_font(path)
+                return
+            except Exception:
+                pass
 
 
-FONT_PREFERRED_ORDER = ["Fira Code", "JetBrains Mono", "SF Mono"]
-# Use Fira Code when available; otherwise first available from preferred order.
-FONT_DEFAULT = _pick_first_available_font(FONT_PREFERRED_ORDER)
-# Use same font as titles/letters so all text (including position/rank labels) matches 01.
+_register_fira_code()
+FONT_DEFAULT = "Fira Code"
 FONT_POSITION_LABEL = FONT_DEFAULT
 
 
@@ -163,6 +169,13 @@ def make_position_label_like(value, color, existing_text_mobject):
     )
 
 
+def position_replacement_label(label_text, item_mob):
+    """Place replacement label same as in make_item: next_to rect, baseline-align to letter. Mutates label_text."""
+    rect, letter_text, _ = item_mob
+    label_text.next_to(rect, RIGHT, buff=POSITION_LABEL_BUFF)
+    label_text.shift(UP * (label_text.get_bottom()[1] - letter_text.get_bottom()[1]))
+
+
 def _place_letter_in_rect(letter_text, rect):
     """Place letter centered in the rect."""
     letter_text.move_to(rect.get_center())
@@ -194,6 +207,8 @@ def make_item(
     pos_text = make_position_label(position, LABEL_DEFAULT).next_to(
         rect, RIGHT, buff=POSITION_LABEL_BUFF
     )
+    # Baseline-align label with letter so row looks aligned
+    pos_text.shift(UP * (pos_text.get_bottom()[1] - letter_text.get_bottom()[1]))
     return VGroup(rect, letter_text, pos_text)
 
 
@@ -243,6 +258,8 @@ def make_item_rank(
     rank_text = make_rank_label(rank_str, LABEL_DEFAULT).next_to(
         rect, RIGHT, buff=POSITION_LABEL_BUFF
     )
+    # Baseline-align label with letter so row looks aligned
+    rank_text.shift(UP * (rank_text.get_bottom()[1] - letter_text.get_bottom()[1]))
     return VGroup(rect, letter_text, rank_text)
 
 

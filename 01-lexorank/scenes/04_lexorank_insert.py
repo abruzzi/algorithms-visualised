@@ -7,6 +7,7 @@ from manim import *
 
 from common import (
     COLOR_BG,
+    debug_font_info,
     LABEL_UPDATED,
     TEXT_LIGHT,
     create_plane,
@@ -37,6 +38,8 @@ class LexorankInsert(Scene):
     """Five elements A–E with string ranks 'a'–'e'; insert F between A and B with midpoint rank."""
     def construct(self):
         self.camera.background_color = COLOR_BG
+
+        debug_font_info("04_lexorank_insert.LexorankInsert")
 
         try:
             Text.set_default(font=FONT_DEFAULT)

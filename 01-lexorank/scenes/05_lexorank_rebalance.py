@@ -7,12 +7,14 @@ from manim import *
 
 from common import (
     COLOR_BG,
+    debug_font_info,
     LABEL_DEFAULT,
     LABEL_UPDATED,
     TEXT_LIGHT,
     create_plane,
     make_item_rank,
     make_rank_label_like,
+    position_replacement_label,
 )
 from common import (
     CONCLUSION_BUFF_SMALL,
@@ -45,6 +47,8 @@ class LexorankRebalance(Scene):
     """Start from A–F (a, am, b, c, d, e); insert between a and am → ag; between a and ag → ad; rebalance."""
     def construct(self):
         self.camera.background_color = COLOR_BG
+
+        debug_font_info("05_lexorank_rebalance.LexorankRebalance")
 
         try:
             Text.set_default(font=FONT_DEFAULT)
@@ -181,9 +185,8 @@ class LexorankRebalance(Scene):
         for mob, new_rank in zip(order, new_ranks):
             old_rank_text = mob[2]
             label_color = LABEL_DEFAULT if new_rank == "a" else LABEL_UPDATED
-            new_rank_text = make_rank_label_like(
-                new_rank, label_color, old_rank_text
-            ).next_to(mob[0], RIGHT, buff=POSITION_LABEL_BUFF)
+            new_rank_text = make_rank_label_like(new_rank, label_color, old_rank_text)
+            position_replacement_label(new_rank_text, mob)
             self.play(
                 Transform(old_rank_text, new_rank_text),
                 run_time=LABEL_UPDATE_RUN_TIME,

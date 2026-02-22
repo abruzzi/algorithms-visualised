@@ -9,11 +9,13 @@ from manim import *
 
 from common import (
     COLOR_BG,
+    debug_font_info,
     LABEL_UPDATED,
     TEXT_LIGHT,
     create_plane,
     make_item,
     make_position_label_like,
+    position_replacement_label,
 )
 from common import (
     CONCLUSION_BUFF,
@@ -44,6 +46,8 @@ class DistanceIntegers(Scene):
     """Sparse integers: same move as problem; only E updates to 1500; no cascade."""
     def construct(self):
         self.camera.background_color = COLOR_BG
+
+        debug_font_info("02_distance_integers.DistanceIntegers")
 
         try:
             Text.set_default(font=FONT_DEFAULT)
@@ -118,9 +122,8 @@ class DistanceIntegers(Scene):
         self.wait(MOVE_WAIT_AFTER)
 
         old_pos_text = item_e[2]
-        new_pos_text = make_position_label_like(1500, LABEL_UPDATED, old_pos_text).move_to(
-            old_pos_text.get_center()
-        )
+        new_pos_text = make_position_label_like(1500, LABEL_UPDATED, old_pos_text)
+        position_replacement_label(new_pos_text, item_e)
         self.play(Transform(old_pos_text, new_pos_text), run_time=LABEL_UPDATE_RUN_TIME_SLOW)
         self.wait(0.8)
 

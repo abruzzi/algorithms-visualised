@@ -18,6 +18,7 @@ from common import (
     make_box_only,
     make_item,
     make_position_label_like,
+    position_replacement_label,
 )
 from common import (
     BOX_ONLY_HEIGHT,
@@ -125,8 +126,7 @@ class ProblemIntro(Scene):
         for mob, new_pos in zip(order_after, new_positions):
             old_pos_text = mob[2]
             label_color = LABEL_UPDATED if new_pos != 1 else LABEL_DEFAULT
-            new_pos_text = make_position_label_like(new_pos, label_color, old_pos_text).move_to(
-                old_pos_text.get_center()
-            )
+            new_pos_text = make_position_label_like(new_pos, label_color, old_pos_text)
+            position_replacement_label(new_pos_text, mob)
             self.play(Transform(old_pos_text, new_pos_text), run_time=LABEL_UPDATE_RUN_TIME)
         self.wait(LABEL_UPDATE_WAIT_AFTER)
