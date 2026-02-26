@@ -24,10 +24,11 @@ software-design-algorithms/
 │       ├── 02_distance_integers.py
 │       └── 03_lexorank_algorithm.py
 │
-├── 02-<next-topic>/           # Same structure for each tutorial
-│   ├── script.md
-│   ├── code/
-│   └── scenes/
+├── 02-ot-crdt/                # OT & CRDT (collaboration)
+│   ├── script.md              # Teleprompter / storyboard
+│   ├── outline.md             # Learning goals, scene list
+│   ├── code/                  # Optional: ot_transform.py, crdt_sequence.py
+│   └── scenes/                # 01_state_divergence.py … 05_summary_comparison.py
 │
 └── _templates/                # Optional: template script + scene stub
     ├── script-template.md

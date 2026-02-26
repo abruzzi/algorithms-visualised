@@ -1,0 +1,21 @@
+---
+description: Use project .venv for Python, manim, and pip so dependencies (e.g. manim) are available
+alwaysApply: true
+---
+
+# Use project virtualenv for Python / Manim
+
+When running Python, manim, pip, or any command that needs project dependencies in this repo:
+
+- **Use the project venv** at the repo root: `.venv/`
+- Prefer invoking the venv’s Python directly instead of relying on a global `python`/`python3`:
+  - From project root: `./.venv/bin/python ...` or `./.venv/bin/python -m manim ...`
+  - Or run in a shell that has activated the venv: `source .venv/bin/activate` then `python` / `manim`
+- Use venv when you need to **compile** (e.g. `python -m py_compile`), **run** scenes, or **render** with manim, so that `manim` and other dependencies from `requirements.txt` are available.
+
+Example (from project root):
+
+```bash
+.venv/bin/python -m py_compile 02-ot-crdt/scenes/common.py
+.venv/bin/python -m manim -pql 02-ot-crdt/scenes/01_conflict.py Conflict
+```
