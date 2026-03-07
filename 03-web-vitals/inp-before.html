@@ -9,13 +9,15 @@
 <body>
   <div class="demo-page">
     <a class="back" href="index.html">← Back to demos</a>
-    <span class="badge before">Before</span>
     <h1>INP: Interaction to Next Paint</h1>
-    <p>Click the button. The main thread is blocked by a long synchronous loop — no visual feedback until it finishes.</p>
+    <p>INP measures how long from your click until the next paint (visual feedback). Here, a long synchronous loop blocks the main thread — <strong>watch the button</strong>: "Processing…" never appears; you go straight from "Process Data" to "Done!" when the work finishes. High INP.</p>
 
     <div class="inp-demo">
       <button type="button" id="process-btn">Process Data</button>
       <p id="status"></p>
+      <p class="inp-try-hint">Try clicking this while "Process Data" is running:</p>
+      <button type="button" id="try-btn">Try me while processing</button>
+      <p id="try-status">Clicks: 0</p>
     </div>
   </div>
   <script src="src/inp-before.js"></script>

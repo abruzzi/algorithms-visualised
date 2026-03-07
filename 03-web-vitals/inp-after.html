@@ -9,13 +9,15 @@
 <body>
   <div class="demo-page">
     <a class="back" href="index.html">← Back to demos</a>
-    <span class="badge after">After</span>
     <h1>INP: Interaction to Next Paint</h1>
-    <p>Click the button. Heavy work is chunked and yielded with <code>setTimeout(..., 0)</code> — you see "Processing..." immediately.</p>
+    <p>Same click, same work. We yield with <code>setTimeout(..., 0)</code> and do work in chunks so the browser can paint right away. <strong>Watch the button</strong>: “Processing…” appears immediately, then “Done!” when finished. Good INP (&lt;200ms to first paint).</p>
 
     <div class="inp-demo">
       <button type="button" id="process-btn">Process Data</button>
       <p id="status"></p>
+      <p class="inp-try-hint">Try clicking this while "Process Data" is running:</p>
+      <button type="button" id="try-btn">Try me while processing</button>
+      <p id="try-status">Clicks: 0</p>
     </div>
   </div>
   <script src="src/inp-after.js"></script>

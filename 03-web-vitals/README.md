@@ -27,6 +27,9 @@ Open **http://localhost:8080**. Use Chrome DevTools (Lighthouse, Performance, Ne
 | `assets/` | Hero and article images (SVG placeholders) |
 | `scenes/01_lcp_calculated.py` | Manim scene: how LCP is calculated (viewport, elements, largest = light green) |
 | `scenes/02_cls_layout_shift.py` | Manim scene: how CLS works (viewport, blocks grow → others pushed down, amber highlight) |
+| `scenes/03_inp_responsiveness.py` | Manim scene: how INP works (blocking → no paint; yield + chunks → quick paint) |
+| `scenes/03_inp_blocking.py` | Manim: INP blocking — red bar grows; other interactions (A, B) get no result |
+| `scenes/04_inp_chunked.py` | Manim: INP chunked — red bar grows in chunks; between chunks A and B get a result |
 
 ## What each demo shows
 
@@ -59,6 +62,10 @@ manim -pql --disable_caching 03-web-vitals/scenes/01_lcp_calculated.py LCPCalcul
 For higher quality: `-qh` (1080p) or `-qk` (4K). The scene shows a viewport; three elements appear in order (small → larger → largest). The current largest is highlighted in light green as the “LCP candidate”; the final one is the LCP element.
 
 **CLS video:** same style (viewport, shared common). Run `manim -pql --disable_caching 03-web-vitals/scenes/02_cls_layout_shift.py CLSLayoutShift`. Three blocks in the viewport; one grows (e.g. image loads without dimensions) and pushes content down; another grows and pushes again. Amber highlight marks the element that caused the shift and the content that was pushed.
+
+**INP video:** Run `manim -pql --disable_caching 03-web-vitals/scenes/03_inp_responsiveness.py INPResponsiveness`. Viewport with a “Process Data” button. First: click → main thread busy bar (no paint) → “Done!” (high INP). Second: click → immediate “Processing…” paint → chunked work blocks → “Done!” (good INP).
+
+**INP blocking (two-scene set):** `03_inp_blocking.py` — one rectangle clicked, red bar grows; during growth other interactions (buttons A, B) happen but get no result. `04_inp_chunked.py` — same layout; red bar grows in chunks with pauses; during pauses A and B get a result (OK). Same style as other web-vitals scenes.
 
 ---
 

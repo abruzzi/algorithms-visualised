@@ -125,7 +125,8 @@ body {
 }
 
 .demo-page .back {
-  display: inline-block;
+  display: block;
+  text-align: left;
   margin-bottom: 1rem;
   color: var(--accent);
   text-decoration: none;
@@ -140,18 +141,6 @@ body {
   font-size: 1.5rem;
   margin: 0 0 0.5rem;
 }
-
-.demo-page .badge {
-  display: inline-block;
-  padding: 0.2em 0.5em;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.demo-page .badge.before { background: var(--bad); color: #fff; }
-.demo-page .badge.after { background: var(--good); color: #fff; }
 
 .demo-page p.tip {
   font-size: 0.9rem;
@@ -204,6 +193,19 @@ body {
 
 .inp-demo #status {
   margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.inp-try-hint {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.inp-demo #try-status {
+  margin-top: 0.5rem;
   color: var(--muted);
   font-size: 0.9rem;
 }

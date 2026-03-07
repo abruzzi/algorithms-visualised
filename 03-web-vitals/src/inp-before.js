@@ -19,9 +19,19 @@
 
   var btn = document.getElementById('process-btn');
   var status = document.getElementById('status');
+  var tryBtn = document.getElementById('try-btn');
+  var tryStatus = document.getElementById('try-status');
+  var tryClicks = 0;
+
+  tryBtn.addEventListener('click', function () {
+    tryClicks += 1;
+    tryStatus.textContent = 'Clicks: ' + tryClicks;
+  });
 
   btn.addEventListener('click', function () {
     status.textContent = '';
+    tryClicks = 0;
+    tryStatus.textContent = 'Clicks: 0';
     // UI update is queued but main thread is about to be blocked
     btn.innerText = 'Processing...';
 

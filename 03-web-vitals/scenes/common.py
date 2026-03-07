@@ -43,6 +43,8 @@ LABEL_COLOR = TEXT_LIGHT
 LCP_HIGHLIGHT = "#90EE90"
 # Amber = element that caused layout shift (CLS) or that was pushed
 CLS_SHIFT_HIGHLIGHT = "#F1C40F"
+# Red = main thread busy (INP blocking / chunk scenes)
+INP_BUSY_RED = "#ff6b6b"
 
 # Alias timing for LCP scene (element appear ≈ create, highlight ≈ short transition)
 T_APPEAR = T_CREATE

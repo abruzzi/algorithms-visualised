@@ -6,6 +6,7 @@
   var ITEMS = 10000;
   var CHUNK_SIZE = 500;
   var data = [];
+
   for (var i = 0; i < ITEMS; i++) {
     data.push(Math.random() * 1000);
   }
@@ -20,12 +21,22 @@
 
   var btn = document.getElementById('process-btn');
   var status = document.getElementById('status');
+  var tryBtn = document.getElementById('try-btn');
+  var tryStatus = document.getElementById('try-status');
+  var tryClicks = 0;
+
+  tryBtn.addEventListener('click', function () {
+    tryClicks += 1;
+    tryStatus.textContent = 'Clicks: ' + tryClicks;
+  });
 
   function processNextChunk(dataArray, startIndex, chunkSize, callback) {
     var end = Math.min(startIndex + chunkSize, dataArray.length);
+    
     for (var i = startIndex; i < end; i++) {
       doHeavyMath(dataArray[i]);
     }
+
     if (end < dataArray.length) {
       setTimeout(function () {
         processNextChunk(dataArray, end, chunkSize, callback);
@@ -37,6 +48,8 @@
 
   btn.addEventListener('click', function () {
     status.textContent = '';
+    tryClicks = 0;
+    tryStatus.textContent = 'Clicks: 0';
     btn.innerText = 'Processing...';
 
     // Yield: let the browser paint "Processing..." before starting heavy work
