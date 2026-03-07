@@ -153,6 +153,15 @@ body {
 .demo-page .badge.before { background: var(--bad); color: #fff; }
 .demo-page .badge.after { background: var(--good); color: #fff; }
 
+.demo-page p.tip {
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  margin: 0 0 1rem;
+}
+
 /* Article / content blocks for CLS */
 .article-block {
   margin-top: 1.5rem;

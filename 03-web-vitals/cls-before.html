@@ -15,10 +15,23 @@
 
     <div class="article-block">
       <h2>10 Tips for System Design</h2>
-      <!-- BAD: No width/height — layout shifts when image loads -->
-      <img src="assets/system-diagram.svg" style="width: 100%; height: auto;" alt="System diagram" />
-      <p>System design is the process of defining the architecture, components, and data flow for a system to meet specified requirements. When the image above finally loads, everything below shifts down. CLS score suffers.</p>
+      <!-- BAD: No width/height; src set after delay so first paint has no image → visible layout shift when they load -->
+      <img id="cls-img1" data-src="assets/system-design-in-frontend.png" alt="System design in frontend mindmap" />
+      <p>System design is the process of defining the architecture, components, and data flow for a system to meet specified requirements. When the image above loads, everything below shifts down.</p>
+      <img id="cls-img2" data-src="assets/frontend-system-design-essentials.png" alt="Frontend system design essentials" />
+      <p>No reserved space, so every image that loads after first paint pushes content. CLS adds up.</p>
+      <img id="cls-img3" data-src="assets/system-design-in-frontend.png" alt="System design mindmap" />
+      <p>Compare with the "after" page: same content; only <code>width</code>/<code>height</code> differ → zero shift.</p>
     </div>
   </div>
+  <script>
+    // Delay image requests so first paint has no images → visible layout shift when they load.
+    // (With normal src= in HTML, PNG/JPEG dimensions come in the first chunk, so the browser
+    // reserves space early and you rarely see a jump even on slow networks.)
+    [['cls-img1', 1500], ['cls-img2', 2500], ['cls-img3', 3500]].forEach(function (entry) {
+      var el = document.getElementById(entry[0]);
+      if (el && el.dataset.src) setTimeout(function () { el.src = el.dataset.src; }, entry[1]);
+    });
+  </script>
 </body>
 </html>

@@ -124,12 +124,12 @@ class LCPCalculated(Scene):
         self.play(FadeIn(label3), run_time=0.3)
         self.wait(T_WAIT_LONG)
 
-        caption = Text(
-            "LCP time = when this largest element finished rendering",
-            font_size=24,
-            color=LABEL_COLOR,
-            font=FONT_DEFAULT,
-        )
-        caption.to_edge(DOWN, buff=0.5)
-        self.play(Write(caption), run_time=T_WRITE)
-        self.wait(T_END)
+        # caption = Text(
+        #     "LCP time = when this largest element finished rendering",
+        #     font_size=24,
+        #     color=LABEL_COLOR,
+        #     font=FONT_DEFAULT,
+        # )
+        # caption.to_edge(DOWN, buff=0.5)
+        # self.play(Write(caption), run_time=T_WRITE)
+        # self.wait(T_END)

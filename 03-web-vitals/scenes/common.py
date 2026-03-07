@@ -41,6 +41,8 @@ COLOR_ELEMENT_STROKE = COLOR_NODE_BORDER
 LABEL_COLOR = TEXT_LIGHT
 # Light green = current LCP candidate (largest visible element)
 LCP_HIGHLIGHT = "#90EE90"
+# Amber = element that caused layout shift (CLS) or that was pushed
+CLS_SHIFT_HIGHLIGHT = "#F1C40F"
 
 # Alias timing for LCP scene (element appear ≈ create, highlight ≈ short transition)
 T_APPEAR = T_CREATE

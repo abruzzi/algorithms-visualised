@@ -26,6 +26,7 @@ Open **http://localhost:8080**. Use Chrome DevTools (Lighthouse, Performance, Ne
 | `css/main.css` | Shared layout and demo styles |
 | `assets/` | Hero and article images (SVG placeholders) |
 | `scenes/01_lcp_calculated.py` | Manim scene: how LCP is calculated (viewport, elements, largest = light green) |
+| `scenes/02_cls_layout_shift.py` | Manim scene: how CLS works (viewport, blocks grow → others pushed down, amber highlight) |
 
 ## What each demo shows
 
@@ -56,6 +57,8 @@ manim -pql --disable_caching 03-web-vitals/scenes/01_lcp_calculated.py LCPCalcul
 ```
 
 For higher quality: `-qh` (1080p) or `-qk` (4K). The scene shows a viewport; three elements appear in order (small → larger → largest). The current largest is highlighted in light green as the “LCP candidate”; the final one is the LCP element.
+
+**CLS video:** same style (viewport, shared common). Run `manim -pql --disable_caching 03-web-vitals/scenes/02_cls_layout_shift.py CLSLayoutShift`. Three blocks in the viewport; one grows (e.g. image loads without dimensions) and pushes content down; another grows and pushes again. Amber highlight marks the element that caused the shift and the content that was pushed.
 
 ---
 
