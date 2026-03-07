@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCP — Before (blocking)</title>
+  <link rel="stylesheet" href="css/main.css">
+  <!-- BAD: Blocking script in head — browser stops parsing until JS downloads and runs -->
+  <script src="src/bundle.js"></script>
+</head>
+<body>
+  <div class="demo-page">
+    <a class="back" href="index.html">← Back to demos</a>
+    <span class="badge before">Before</span>
+    <h1>Welcome to our store</h1>
+    <!-- Hero is in HTML but the browser can't parse it until the blocking script in head finishes -->
+    <img src="assets/hero-banner.webp" alt="" width="1200" height="800" />
+    <p>Blocking script in head delays parsing — the image request only starts after the script runs. LCP suffers.</p>
+  </div>
+</body>
+</html>

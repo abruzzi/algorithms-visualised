@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Web Vitals — Demos</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>Core Web Vitals</h1>
+    <p>Before / After demos for LCP, CLS, and INP. Use DevTools (Lighthouse, Performance) to compare.</p>
+  </header>
+
+  <main class="demo-grid">
+    <section class="demo-card">
+      <h2>1. LCP — Largest Contentful Paint</h2>
+      <p>Hero image loading: blocking script vs preload + defer.</p>
+      <nav class="before-after">
+        <a href="lcp-before.html">Before (blocking)</a>
+        <a href="lcp-after.html">After (preload + defer)</a>
+      </nav>
+    </section>
+
+    <section class="demo-card">
+      <h2>2. CLS — Cumulative Layout Shift</h2>
+      <p>Image without dimensions vs intrinsic width/height to reserve space.</p>
+      <nav class="before-after">
+        <a href="cls-before.html">Before (no dimensions)</a>
+        <a href="cls-after.html">After (width/height)</a>
+      </nav>
+    </section>
+
+    <section class="demo-card">
+      <h2>3. INP — Interaction to Next Paint</h2>
+      <p>Heavy sync work vs yielding (setTimeout) and chunking.</p>
+      <nav class="before-after">
+        <a href="inp-before.html">Before (blocking loop)</a>
+        <a href="inp-after.html">After (yield + chunks)</a>
+      </nav>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p>Run <code>npm start</code> and open <code>http://localhost:8080</code>. Measure with Chrome DevTools → Lighthouse or Performance.</p>
+  </footer>
+</body>
+</html>

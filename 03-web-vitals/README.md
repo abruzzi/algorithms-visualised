@@ -1,0 +1,62 @@
+# 03 — Core Web Vitals
+
+Demos for **LCP**, **CLS**, and **INP**: how different code and loading choices affect Core Web Vitals. Use before/after pages to compare in the browser and in DevTools.
+
+## Quick start
+
+```bash
+cd 03-web-vitals
+npm install
+npm start
+```
+
+Open **http://localhost:8080**. Use Chrome DevTools (Lighthouse, Performance, Network throttling) to measure.
+
+## Structure
+
+| Path | Purpose |
+|------|--------|
+| `index.html` | Entry: links to each metric’s before/after demos |
+| `lcp-before.html` / `lcp-after.html` | LCP: blocking script vs preload + `defer` + `fetchpriority="high"` |
+| `cls-before.html` / `cls-after.html` | CLS: image without dimensions vs intrinsic `width`/`height` |
+| `inp-before.html` / `inp-after.html` | INP: blocking click handler vs chunked work + `setTimeout(0)` yield |
+| `src/bundle.js` | Simulated heavy script for LCP demos |
+| `src/inp-before.js` | Sync loop on button click (blocks main thread) |
+| `src/inp-after.js` | Chunked processing with yield for INP |
+| `css/main.css` | Shared layout and demo styles |
+| `assets/` | Hero and article images (SVG placeholders) |
+| `scenes/01_lcp_calculated.py` | Manim scene: how LCP is calculated (viewport, elements, largest = light green) |
+
+## What each demo shows
+
+1. **LCP (Largest Contentful Paint)**  
+   - **Before:** `<script src="bundle.js">` in `<head>` blocks parsing; hero image is requested only after the script runs.  
+   - **After:** `<link rel="preload" ... as="image">` and `<script defer>`, plus `fetchpriority="high"` on the hero image so the LCP asset loads in parallel and body can render sooner.
+
+2. **CLS (Cumulative Layout Shift)**  
+   - **Before:** Image with only `width: 100%; height: auto` — no intrinsic size, so layout jumps when the image loads.  
+   - **After:** Same CSS plus `width` and `height` attributes so the browser reserves the correct aspect-ratio space and avoids shift.
+
+3. **INP (Interaction to Next Paint)**  
+   - **Before:** Click handler runs a long synchronous loop; the button text doesn’t change to “Processing...” until the loop finishes.  
+   - **After:** Set “Processing...” immediately, then run the heavy work in chunks with `setTimeout(processNextChunk, 0)` so the main thread can paint in between.
+
+## Tips for video / live demo
+
+- **LCP:** `bundle.js` does ~1–2s of synchronous work so the "before" page blocks parsing and delays the hero request; compare Lighthouse LCP on before vs after. For a starker difference, run Lighthouse with "Slow 4G" so the blocking script download also hurts the before version.
+- **CLS:** Throttle network so the image loads after first paint; compare CLS in Lighthouse or the Experience section.
+- **INP:** Click “Process Data” and watch when the button label updates; use Performance to see long tasks on the before version.
+
+## LCP video (Manim)
+
+From the **project root** (with venv active and `manim` installed):
+
+```bash
+manim -pql --disable_caching 03-web-vitals/scenes/01_lcp_calculated.py LCPCalculated
+```
+
+For higher quality: `-qh` (1080p) or `-qk` (4K). The scene shows a viewport; three elements appear in order (small → larger → largest). The current largest is highlighted in light green as the “LCP candidate”; the final one is the LCP element.
+
+---
+
+The LCP demos use `assets/hero-banner.webp` (1200×800, ~570KB), resized from the original PNG for hero use. The original `hero-banner.png` (3750×2501) remains in `assets/` for reference. For CLS, replace `assets/system-diagram.svg` with a real image when you want more realistic numbers.

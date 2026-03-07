@@ -1,0 +1,12 @@
+{
+  "name": "03-web-vitals",
+  "version": "1.0.0",
+  "description": "Core Web Vitals demos: LCP, CLS, INP before/after",
+  "scripts": {
+    "start": "http-server -p 8080 -c-1",
+    "server": "http-server -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

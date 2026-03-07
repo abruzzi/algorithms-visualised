@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLS — Before (no dimensions)</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="demo-page">
+    <a class="back" href="index.html">← Back to demos</a>
+    <span class="badge before">Before</span>
+    <h1>CLS: Cumulative Layout Shift</h1>
+    <p>Image has no intrinsic size — browser reserves 0 height until the image loads, then content jumps.</p>
+
+    <div class="article-block">
+      <h2>10 Tips for System Design</h2>
+      <!-- BAD: No width/height — layout shifts when image loads -->
+      <img src="assets/system-diagram.svg" style="width: 100%; height: auto;" alt="System diagram" />
+      <p>System design is the process of defining the architecture, components, and data flow for a system to meet specified requirements. When the image above finally loads, everything below shifts down. CLS score suffers.</p>
+    </div>
+  </div>
+</body>
+</html>

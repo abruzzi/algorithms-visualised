@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a1a24"/>
+  <rect x="80" y="80" width="200" height="120" rx="8" fill="#2d2d44" stroke="#6c8fff"/>
+  <rect x="400" y="80" width="200" height="120" rx="8" fill="#2d2d44" stroke="#6c8fff"/>
+  <rect x="720" y="80" width="200" height="120" rx="8" fill="#2d2d44" stroke="#6c8fff"/>
+  <line x1="280" y1="140" x2="400" y2="140" stroke="#8888a0" stroke-width="2"/>
+  <line x1="600" y1="140" x2="720" y2="140" stroke="#8888a0" stroke-width="2"/>
+  <text x="180" y="145" font-family="system-ui,sans-serif" font-size="14" fill="#e8e8ed" text-anchor="middle">Service A</text>
+  <text x="500" y="145" font-family="system-ui,sans-serif" font-size="14" fill="#e8e8ed" text-anchor="middle">Service B</text>
+  <text x="820" y="145" font-family="system-ui,sans-serif" font-size="14" fill="#e8e8ed" text-anchor="middle">Service C</text>
+  <text x="600" y="340" font-family="system-ui,sans-serif" font-size="20" fill="#8888a0" text-anchor="middle">System diagram  1200×630</text>
+</svg>

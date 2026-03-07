@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCP — After (preload + defer)</title>
+  <link rel="stylesheet" href="css/main.css">
+  <!-- Preload LCP asset so the browser requests it immediately -->
+  <link rel="preload" href="assets/hero-banner.webp" as="image" type="image/webp">
+  <!-- defer: download in parallel, execute after HTML is parsed — does not block -->
+  <script src="src/bundle.js" defer></script>
+</head>
+<body>
+  <div class="demo-page">
+    <a class="back" href="index.html">← Back to demos</a>
+    <span class="badge after">After</span>
+    <h1>Welcome to our store</h1>
+    <img src="assets/hero-banner.webp" fetchpriority="high" alt="" width="1200" height="800" />
+    <p>Preload + defer: image request starts in parallel with JS; body renders without waiting. LCP improves.</p>
+  </div>
+</body>
+</html>
