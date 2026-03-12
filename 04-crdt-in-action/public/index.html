@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRDT in action — Yjs live</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="back" href="/">← Back to demos</a>
+      <h1>CRDT in action</h1>
+      <p class="subtitle">Shared text with <a href="https://github.com/yjs/yjs" target="_blank" rel="noopener">Yjs</a> over WebSocket. Open this page in multiple tabs or devices — edits sync in real time.</p>
+      <p class="status" id="status">Connecting…</p>
+    </header>
+    <main>
+      <label for="content">Shared content (initial: &quot;Hello world&quot;)</label>
+      <textarea id="content" rows="6" placeholder="Hello world"></textarea>
+      <p class="hint">Same scenario as the OT/CRDT doc: three users can type concurrently; Yjs merges without a central transform step.</p>
+    </main>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

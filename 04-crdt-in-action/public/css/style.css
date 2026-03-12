@@ -1,0 +1,99 @@
+/* CRDT in action — minimal layout */
+:root {
+  --bg: #0f0f12;
+  --surface: #1a1a20;
+  --text: #e8e8ed;
+  --muted: #8888a0;
+  --accent: #6c8fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.back {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.subtitle {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.subtitle a {
+  color: var(--accent);
+}
+
+.status {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+.status.connected {
+  color: #51cf66;
+}
+
+.status.error {
+  color: #ff6b6b;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text);
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.hint {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}

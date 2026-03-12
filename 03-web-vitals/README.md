@@ -59,9 +59,9 @@ From the **project root** (with venv active and `manim` installed):
 manim -pql --disable_caching 03-web-vitals/scenes/01_lcp_calculated.py LCPCalculated
 ```
 
-For higher quality: `-qh` (1080p) or `-qk` (4K). The scene shows a viewport; three elements appear in order (small → larger → largest). The current largest is highlighted in light green as the “LCP candidate”; the final one is the LCP element.
+**High quality (2160p60):** use `-qk` (same as other chapters). Output: `media/videos/01_lcp_calculated/2160p60/LCPCalculated.mp4`, `media/videos/02_cls_layout_shift/2160p60/CLSLayoutShift.mp4`. Preview: `-pql` (low) or `-qh` (1080p). The scene shows a viewport; three elements appear in order (small → larger → largest). The current largest is highlighted in light green as the “LCP candidate”; the final one is the LCP element.
 
-**CLS video:** same style (viewport, shared common). Run `manim -pql --disable_caching 03-web-vitals/scenes/02_cls_layout_shift.py CLSLayoutShift`. Three blocks in the viewport; one grows (e.g. image loads without dimensions) and pushes content down; another grows and pushes again. Amber highlight marks the element that caused the shift and the content that was pushed.
+**CLS video:** same style (viewport, shared common). Run `manim -qk --disable_caching 03-web-vitals/scenes/02_cls_layout_shift.py CLSLayoutShift` for 2160p60. Output: `media/videos/02_cls_layout_shift/2160p60/CLSLayoutShift.mp4`. Three blocks in the viewport; one grows (e.g. image loads without dimensions) and pushes content down; another grows and pushes again. Amber highlight marks the element that caused the shift and the content that was pushed.
 
 **INP video:** Run `manim -pql --disable_caching 03-web-vitals/scenes/03_inp_responsiveness.py INPResponsiveness`. Viewport with a “Process Data” button. First: click → main thread busy bar (no paint) → “Done!” (high INP). Second: click → immediate “Processing…” paint → chunked work blocks → “Done!” (good INP).
 

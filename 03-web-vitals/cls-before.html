@@ -25,8 +25,6 @@
   </div>
   <script>
     // Delay image requests so first paint has no images → visible layout shift when they load.
-    // (With normal src= in HTML, PNG/JPEG dimensions come in the first chunk, so the browser
-    // reserves space early and you rarely see a jump even on slow networks.)
     [['cls-img1', 1500], ['cls-img2', 2500], ['cls-img3', 3500]].forEach(function (entry) {
       var el = document.getElementById(entry[0]);
       if (el && el.dataset.src) setTimeout(function () { el.src = el.dataset.src; }, entry[1]);

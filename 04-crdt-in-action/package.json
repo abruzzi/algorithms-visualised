@@ -1,0 +1,16 @@
+{
+  "name": "04-crdt-in-action",
+  "version": "1.0.0",
+  "description": "Live CRDT demo with Yjs and WebSocket — collaborative text in the browser",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "ws": "^8.18.0",
+    "yjs": "^13.6.20"
+  }
+}
